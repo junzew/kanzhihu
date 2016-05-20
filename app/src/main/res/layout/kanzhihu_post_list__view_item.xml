@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/post_lv_item"
+        android:orientation="vertical"
+        android:padding="5dp">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="星空摄影如何入门？"
+                android:padding="8dp"
+                android:id="@+id/post_lv_title"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_toLeftOf="@+id/favorite"
+                android:layout_toStartOf="@+id/favorite" />
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_favorite_border_black_24dp"
+                android:id="@+id/favorite"
+                android:layout_alignParentRight="true"
+                android:padding="5dp"/>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:src="@mipmap/ic_launcher"
+                android:id="@+id/post_lv_img" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:id="@+id/post_lv_content"
+                android:text="超长文星空攻略整合，三年星空拍摄经验全盘托出。 注意原创文章禁止一切未经允许的转载需要转载请联系本人如若发现未经允许的转载必将追究其相关责任请尊重作者的创造与劳动成果。P1广角镜头与星野摄影仰望星空总是使人着迷，人类的飞天梦也从未止步，不论…"
+                android:textColor="@color/textColor"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>
