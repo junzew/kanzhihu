@@ -4,6 +4,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -78,8 +80,10 @@ public class KanZhiHuFragment extends Fragment implements SwipeRefreshLayout.OnR
 
         url = "http://api.kanzhihu.com/getposts/";
 
-        DBHelper helper = DBHelper.getInstance(getActivity());
-        adapter.addPosts(helper.queryPosts());
+        if (!isNetworkAvailable()) {
+            DBHelper helper = DBHelper.getInstance(getActivity());
+            adapter.addPosts(helper.queryPosts());
+        }
 
         srl = (SwipeRefreshLayout) layout.findViewById(R.id.swipe_container);
         srl.setColorSchemeResources(R.color.colorPrimary);
@@ -108,7 +112,12 @@ public class KanZhiHuFragment extends Fragment implements SwipeRefreshLayout.OnR
         });
     }
 
-
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
     @Override
     public void onRefresh() {
         doRefresh();
@@ -242,6 +251,7 @@ public class KanZhiHuFragment extends Fragment implements SwipeRefreshLayout.OnR
                 connection.setRequestMethod("GET");
                 connection.connect();
                 if (connection.getResponseCode() != 200) {
+
                     throw new IOException();
                 }
                 jsonResults = readResponse();

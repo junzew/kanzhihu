@@ -40,9 +40,9 @@ public class LogService extends Service {
         }
         @Override
         public void handleMessage(Message msg) {
-
+            // Update Database with latest posts every 5 minutes
             while(true) {
-                long endTime = System.currentTimeMillis() + 120*1000;
+                long endTime = System.currentTimeMillis() + 300 * 1000;
                 while (System.currentTimeMillis() < endTime) {
                     synchronized (this) {
                         try {
@@ -83,7 +83,8 @@ public class LogService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Toast.makeText(this, "service starting", Toast.LENGTH_SHORT).show();
+        Log.i("LogService", "onStartCommand");
+        //Toast.makeText(this, "service starting", Toast.LENGTH_SHORT).show();
 
         // For each start request, send a message to start a job and deliver the
         // start ID so we know which request we're stopping when we finish the job
@@ -103,7 +104,8 @@ public class LogService extends Service {
 
     @Override
     public void onDestroy() {
-        Toast.makeText(this, "service done", Toast.LENGTH_SHORT).show();
+        Log.i("LogService", "onDestroy");
+        // Toast.makeText(this, "service done", Toast.LENGTH_SHORT).show();
     }
 
     private class LoadingTask {

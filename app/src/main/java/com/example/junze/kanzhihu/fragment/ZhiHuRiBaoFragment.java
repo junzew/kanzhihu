@@ -1,26 +1,19 @@
 package com.example.junze.kanzhihu.fragment;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.junze.kanzhihu.EndlessRecyclerViewScrollListener;
 import com.example.junze.kanzhihu.R;
@@ -37,7 +30,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -46,12 +38,13 @@ import java.util.List;
 public class ZhiHuRiBaoFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     private View layout;
     //private MainListViewAdapter adapter;
-   // private ListView lv;
+    // private ListView lv;
     private RecyclerView rv;
     private LinearLayoutManager llm;
     private RVAdapter adapter;
     private String url;
     private SwipeRefreshLayout srl;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -60,10 +53,11 @@ public class ZhiHuRiBaoFragment extends Fragment implements SwipeRefreshLayout.O
         init();
         return layout;
     }
+
     private void init() {
-       // lv = (ListView) layout.findViewById(R.id.zhihuribao_lv);
-       // adapter = new MainListViewAdapter();
-       // lv.setAdapter(adapter);
+        // lv = (ListView) layout.findViewById(R.id.zhihuribao_lv);
+        // adapter = new MainListViewAdapter();
+        // lv.setAdapter(adapter);
         srl = (SwipeRefreshLayout) layout.findViewById(R.id.swipe_container);
         srl.setColorSchemeResources(R.color.colorPrimary);
         srl.setDistanceToTriggerSync(300);
@@ -79,7 +73,7 @@ public class ZhiHuRiBaoFragment extends Fragment implements SwipeRefreshLayout.O
             }
         });
         // RecyclerView
-        rv=  (RecyclerView) layout.findViewById(R.id.recycler_view);
+        rv = (RecyclerView) layout.findViewById(R.id.recycler_view);
         llm = new LinearLayoutManager(getActivity());
         rv.setLayoutManager(llm);
         adapter = new RVAdapter();
@@ -88,47 +82,43 @@ public class ZhiHuRiBaoFragment extends Fragment implements SwipeRefreshLayout.O
         rv.addOnScrollListener(new EndlessRecyclerViewScrollListener(llm) {
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
-                Toast.makeText(getActivity(),"load more",Toast.LENGTH_SHORT).show();
+                // Toast.makeText(getActivity(),"load more",Toast.LENGTH_SHORT).show();
                 String url = "http://news.at.zhihu.com/api/4/news/before/";
                 String dateString = StoryParser.date;
-                String year = dateString.substring(0,4);
-                String month = dateString.substring(4,6);
+                String year = dateString.substring(0, 4);
+                String month = dateString.substring(4, 6);
                 String day = dateString.substring(6);
                 int y = Integer.parseInt(year) - 1900;
-                int m = Integer.parseInt(month) -1;
+                int m = Integer.parseInt(month) - 1;
                 int d = Integer.parseInt(day);
 
                 Calendar cal = Calendar.getInstance();
                 cal.set(y, m, d);
-                cal.add(Calendar.DAY_OF_YEAR,-1);
-                //Log.i("D", cal.get(Calendar.DATE)+"");
-                //Date oneDayBefore = cal.getTime();
+                cal.add(Calendar.DAY_OF_YEAR, -1);
 
-                //Log.i("DATE", oneDayBefore.toString());
-                Log.i("YEAR", y+"");
-                Log.i("MONTH", m+"");
-                Log.i("DAY", d+"");
+                Log.i("YEAR", y + "");
+                Log.i("MONTH", m + "");
+                Log.i("DAY", d + "");
 
+                y = cal.get(Calendar.YEAR);
+                m = cal.get(Calendar.MONTH);
+                d = cal.get(Calendar.DATE);
+                Log.i("YEAR", y + "");
+                Log.i("MONTH", m + "");
+                Log.i("DAY", d + "");
 
-               y = cal.get(Calendar.YEAR);
-               m = cal.get(Calendar.MONTH);
-               d =  cal.get(Calendar.DATE);
-                Log.i("YEAR", y+"");
-                Log.i("MONTH", m+"");
-                Log.i("DAY", d+"");
-
-                year = Integer.toString(y+1900);
-                month = Integer.toString(m+1);
+                year = Integer.toString(y + 1900);
+                month = Integer.toString(m + 1);
                 if (m >= 0 && m <= 9) {
                     month = "0" + month;
                 }
                 day = Integer.toString(d);
-                if (d >= 1 && d<= 9) {
+                if (d >= 1 && d <= 9) {
                     day = "0" + day;
                 }
-                String dayBefore = year+month+day;
+                String dayBefore = year + month + day;
                 url += dayBefore;
-                Log.i("EXDAY", dayBefore);
+                Log.i("DayBefore", dayBefore);
                 new LoadingTask().execute(url);
                 int curSize = adapter.getItemCount();
                 adapter.notifyItemRangeInserted(curSize, adapter.stories.size() - 1);
@@ -136,8 +126,10 @@ public class ZhiHuRiBaoFragment extends Fragment implements SwipeRefreshLayout.O
         });
 
     }
+
     public class RVAdapter extends RecyclerView.Adapter<RVAdapter.StoryViewHolder> {
         List<Story> stories = new ArrayList<>();
+
         public void addStories(List<Story> stories) {
             for (Story s : stories) {
                 if (!this.stories.contains(s))
@@ -145,14 +137,16 @@ public class ZhiHuRiBaoFragment extends Fragment implements SwipeRefreshLayout.O
             }
             notifyDataSetChanged();
         }
+
         public void setStories(List<Story> stories) {
             this.stories = stories;
-            Log.i("LENGTH", ""+stories.size());
+            Log.i("LENGTH", "" + stories.size());
             notifyDataSetChanged();
         }
+
         @Override
         public StoryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            return new StoryViewHolder(getActivity().getLayoutInflater().inflate(R.layout.zhihuribao_list_view_item,parent,false));
+            return new StoryViewHolder(getActivity().getLayoutInflater().inflate(R.layout.zhihuribao_list_view_item, parent, false));
         }
 
         @Override
@@ -199,7 +193,7 @@ public class ZhiHuRiBaoFragment extends Fragment implements SwipeRefreshLayout.O
         new LoadingTask().execute(url);
     }
 
-//    private class MainListViewAdapter extends BaseAdapter {
+    //    private class MainListViewAdapter extends BaseAdapter {
 //        List<Story> stories = new ArrayList<>();
 //
 //        public void setStories(List<Story> stories) {
