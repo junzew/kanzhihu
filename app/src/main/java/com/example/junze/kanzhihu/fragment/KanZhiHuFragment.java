@@ -251,7 +251,6 @@ public class KanZhiHuFragment extends Fragment implements SwipeRefreshLayout.OnR
                 connection.setRequestMethod("GET");
                 connection.connect();
                 if (connection.getResponseCode() != 200) {
-
                     throw new IOException();
                 }
                 jsonResults = readResponse();

@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ImageView;
@@ -65,11 +66,12 @@ public class ThemeActivity extends WorkerActivity<ThemeContent> {
         TextView tv = (TextView) convertView.findViewById(R.id.selected_theme_lv_item_text);
         tv.setText(item.getTitle());
         ImageView imageView = (ImageView) convertView.findViewById(R.id.selected_theme_lv_item_image);
+        Log.d("ThemeActivity", item.getImages());
+        imageView.setImageResource(R.color.background);
         try {
             Picasso.with(this).load(item.getImages()).into(imageView);
         } catch (Exception e) {
             e.printStackTrace();
-            imageView.setImageResource(R.color.background);
         }
         // TODO Bug: 图片第一张复用
     }

@@ -4,7 +4,7 @@ package com.example.junze.kanzhihu.model;
  * Created by junze on 16-05-11.
  */
 public class User {
-    // TODO user info system
+
     private String id;
     private String name;
     private String hash;

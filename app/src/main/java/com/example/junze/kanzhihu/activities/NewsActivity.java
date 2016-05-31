@@ -117,6 +117,7 @@ public class NewsActivity extends AppCompatActivity {
                     // 文章外链
                     Log.i("外链","外链");
                     WebFragment wf = WebFragment.newInstance(news.getShare_url());
+                    Log.i("外链", news.getShare_url());
                     FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                     ft.replace(R.id.news_parent_container, wf);
                     ft.commit();

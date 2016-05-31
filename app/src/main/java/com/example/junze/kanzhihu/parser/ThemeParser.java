@@ -78,8 +78,6 @@ name : 供显示的主题日报名称
             s.setImages("");
         }
 
-       // System.out.println("<<<<<<<<<<>>>>>>>>>>>>>>>" + s.toString());
-
         return s;
     }
 }

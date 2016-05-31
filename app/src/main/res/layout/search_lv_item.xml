@@ -75,7 +75,14 @@
                 android:id="@+id/follower"/>
         </LinearLayout>
 
+
     </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#cccccccc"
+        android:paddingTop="1dp"
+        android:layout_below="@id/user_avatar"/>
 
 
 </RelativeLayout>

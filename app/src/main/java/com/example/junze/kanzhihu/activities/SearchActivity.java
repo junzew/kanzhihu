@@ -110,7 +110,6 @@ public class SearchActivity extends WorkerActivity<User> {
 
     @Override
     protected void onClickCallBack(User user) {
-        // TODO jump to user info specifics
         String url = "https://www.zhihu.com/people/" + user.getId();
         WebFragment wf = WebFragment.newInstance(url);
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();

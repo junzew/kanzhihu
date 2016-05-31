@@ -19,4 +19,9 @@
         android:layout_alignParentRight="true"
         android:padding="8dp"
         android:src="@mipmap/ic_launcher"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#cccccccc"
+        android:layout_below="@id/zhihuribao_lv_img"/>
 </RelativeLayout>

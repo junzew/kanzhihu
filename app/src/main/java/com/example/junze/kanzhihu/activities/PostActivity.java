@@ -1,19 +1,11 @@
 package com.example.junze.kanzhihu.activities;
 
 import android.content.Intent;
-import android.media.Image;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -22,17 +14,9 @@ import com.example.junze.kanzhihu.R;
 import com.example.junze.kanzhihu.db.DBHelper;
 import com.example.junze.kanzhihu.fragment.WebFragment;
 import com.example.junze.kanzhihu.model.Answer;
-import com.example.junze.kanzhihu.model.Post;
 import com.example.junze.kanzhihu.parser.AnswersParser;
-import com.example.junze.kanzhihu.parser.Parser;
 import com.squareup.picasso.Picasso;
 
-import org.json.JSONException;
-
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,7 +33,7 @@ public class PostActivity extends WorkerActivity<Answer>  {
         this.parser = new AnswersParser();
         this.activityLayoutResourceId = R.layout.activity_post;
         this.listViewResourceId = R.id.post_lv;
-        this.listViewItemResourceId = R.layout.kanzhihu_post_list__view_item;
+        this.listViewItemResourceId = R.layout.kanzhihu_post_list_view_item;
 
         Intent intent = getIntent();
         String name = intent.getStringExtra("name");

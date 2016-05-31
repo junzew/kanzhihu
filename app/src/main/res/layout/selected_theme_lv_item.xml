@@ -20,4 +20,9 @@
         android:layout_toRightOf="@+id/selected_theme_lv_item_text"
         android:layout_toEndOf="@+id/selected_theme_lv_item_text"
         android:padding="8dp"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#cccccccc"
+        android:layout_below="@id/selected_theme_lv_item_image"/>
 </RelativeLayout>
