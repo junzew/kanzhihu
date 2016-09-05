@@ -19,6 +19,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.junze.kanzhihu.EndlessScrollListener;
 import com.example.junze.kanzhihu.R;
@@ -299,6 +300,7 @@ public class KanZhiHuFragment extends Fragment implements SwipeRefreshLayout.OnR
         public void onReceive(Context context, Intent intent) {
             Log.i("onReceive", "receiving");
             DBHelper helper = DBHelper.getInstance(getActivity());
+            Toast.makeText(getActivity(), "Background Sevice Update", Toast.LENGTH_SHORT).show();
             //adapter.setPosts(helper.queryPosts());
         }
     }

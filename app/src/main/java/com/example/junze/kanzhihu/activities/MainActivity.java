@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity  {
             /** Called when a drawer has settled in a completely open state. */
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-                getSupportActionBar().setTitle("Navigation");
+                getSupportActionBar().setTitle("个人");
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
         };
@@ -171,11 +171,14 @@ public class MainActivity extends AppCompatActivity  {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 // TODO
-                if (item.getItemId() == R.id.action_settings) {
-                    Toast.makeText(MainActivity.this,"Clicked Settings", 1000).show();
-                    return true;
+                switch(item.getItemId()) {
+                    case R.id.action_about:
+                        String info = getString(R.string.app_name);
+                        info += " http://www.kanzhihu.com";
+                        Toast.makeText(MainActivity.this, info, Toast.LENGTH_LONG).show();
+                        break;
                 }
-                return false;
+                return true;
             }
         });
 

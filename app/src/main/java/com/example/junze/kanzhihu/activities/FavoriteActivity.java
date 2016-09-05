@@ -10,6 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.junze.kanzhihu.R;
 import com.example.junze.kanzhihu.db.DBHelper;
@@ -46,12 +47,12 @@ public class FavoriteActivity  extends AppCompatActivity {
 
         @Override
         public Object getItem(int i) {
-            return null;
+            return answers.get(i);
         }
 
         @Override
         public long getItemId(int i) {
-            return 0;
+            return i;
         }
 
         @Override
@@ -59,6 +60,7 @@ public class FavoriteActivity  extends AppCompatActivity {
             if (convertView == null) {
                 convertView = getLayoutInflater().inflate(R.layout.favorite_lv_item, viewGroup, false);
             }
+
             final Answer item = answers.get(position);
 //            processViews(convertView, item);
 
@@ -75,14 +77,19 @@ public class FavoriteActivity  extends AppCompatActivity {
             favorite.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    Toast.makeText(FavoriteActivity.this, "长按删除",Toast.LENGTH_SHORT).show();
+                }
+            });
+            favorite.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
                     answers = helper.getAnswers();
                     if (answers.contains(item)) {
                         helper.removeAnswer(item);
-                        favorite.setImageResource(R.drawable.ic_favorite_border_black_24dp);
-                    } else {
-                        helper.addAnswer(item);
-                        favorite.setImageResource(R.drawable.ic_favorite_black_24dp);
                     }
+                    answers = helper.getAnswers();
+                    notifyDataSetChanged();
+                    return true;
                 }
             });
             convertView.setOnClickListener(new View.OnClickListener() {
