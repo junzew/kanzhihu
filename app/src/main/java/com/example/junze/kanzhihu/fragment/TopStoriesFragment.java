@@ -55,7 +55,7 @@ public class TopStoriesFragment extends Fragment implements SwipeRefreshLayout.O
         srl.setColorSchemeResources(R.color.colorPrimary);
         srl.setDistanceToTriggerSync(300);
         srl.setProgressBackgroundColorSchemeResource(R.color.colorAccent);
-        srl.setSize(SwipeRefreshLayout.LARGE);
+        srl.setSize(SwipeRefreshLayout.DEFAULT);
         srl.setOnRefreshListener(this);
         srl.setRefreshing(true);
         url = "http://news-at.zhihu.com/api/4/news/latest";

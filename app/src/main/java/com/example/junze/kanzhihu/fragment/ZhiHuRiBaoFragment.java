@@ -62,7 +62,7 @@ public class ZhiHuRiBaoFragment extends Fragment implements SwipeRefreshLayout.O
         srl.setColorSchemeResources(R.color.colorPrimary);
         srl.setDistanceToTriggerSync(300);
         srl.setProgressBackgroundColorSchemeResource(R.color.colorAccent);
-        srl.setSize(SwipeRefreshLayout.LARGE);
+        srl.setSize(SwipeRefreshLayout.DEFAULT);
         srl.setOnRefreshListener(this);
         url = "http://news-at.zhihu.com/api/4/news/latest";
         srl.post(new Runnable() {

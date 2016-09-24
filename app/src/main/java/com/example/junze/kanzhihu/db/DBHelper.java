@@ -153,7 +153,8 @@ public class DBHelper extends SQLiteOpenHelper {
      */
     public Cursor queryTheCursor() {
         SQLiteDatabase db = getReadableDatabase();
-        Cursor c = db.rawQuery("SELECT * FROM " + Contract.PostEntry.TABLE_NAME, null);
+        Cursor c = db.rawQuery("SELECT * FROM " + Contract.PostEntry.TABLE_NAME +
+                " ORDER BY " + Contract.PostEntry.DATE + " DESC", null);
         return c;
     }
 

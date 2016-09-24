@@ -90,7 +90,7 @@ public class KanZhiHuFragment extends Fragment implements SwipeRefreshLayout.OnR
         srl.setColorSchemeResources(R.color.colorPrimary);
         srl.setDistanceToTriggerSync(300);
         srl.setProgressBackgroundColorSchemeResource(R.color.colorAccent);
-        srl.setSize(SwipeRefreshLayout.LARGE);
+        srl.setSize(SwipeRefreshLayout.DEFAULT);
         srl.setOnRefreshListener(this);
         srl.post(new Runnable() {
             @Override
@@ -300,7 +300,7 @@ public class KanZhiHuFragment extends Fragment implements SwipeRefreshLayout.OnR
         public void onReceive(Context context, Intent intent) {
             Log.i("onReceive", "receiving");
             DBHelper helper = DBHelper.getInstance(getActivity());
-            Toast.makeText(getActivity(), "Background Sevice Update", Toast.LENGTH_SHORT).show();
+            // Toast.makeText(getActivity(), "Background Sevice Update", Toast.LENGTH_SHORT).show();
             //adapter.setPosts(helper.queryPosts());
         }
     }
