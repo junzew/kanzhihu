@@ -10,6 +10,13 @@ Built with [kanzhihu](http://www.kanzhihu.com/api-document) and [ZhihuDaily](htt
 # ScreenShots
 
 
-<img src="https://github.com/junzew/kanzhihu/raw/master/screenshots/device-2016-09-24-134430.png" alt="" style="width: 200px;"/><br>
-<img src="https://github.com/junzew/kanzhihu/raw/master/screenshots/device-2016-09-24-134615.png" alt="" style="width: 200px;"/><br>
-<img src="https://github.com/junzew/kanzhihu/raw/master/screenshots/device-2016-09-24-134641.png" alt="" style="width: 200px;"/>
+
+<table>
+<tr>
+<td><img width="100px" src="https://github.com/junzew/kanzhihu/raw/master/screenshots/device-2016-09-24-134430.png" /></td>
+<td><img width="100px" src="https://github.com/junzew/kanzhihu/raw/master/screenshots/device-2016-09-24-134615.png" /></td>
+<td><img width="100px" src="https://github.com/junzew/kanzhihu/raw/master/screenshots/device-2016-09-24-134641.png" /></td>
+</tr>
+</table>
+
+
