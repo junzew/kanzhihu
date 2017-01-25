@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.junze.kanzhihu.R;
+import com.example.junze.kanzhihu.URLUtils;
 import com.example.junze.kanzhihu.activities.ThemeActivity;
 import com.example.junze.kanzhihu.model.ThemeListItem;
 import com.example.junze.kanzhihu.parser.ThemeParser;
@@ -49,7 +50,7 @@ public class ThemeFragment extends Fragment {
         adapter = new MainListViewAdapter();
         lv.setAdapter(adapter);
 
-        url = "http://news-at.zhihu.com/api/4/themes";
+        url = URLUtils.THEMES;
         new LoadingTask().execute(url);
     }
     private class MainListViewAdapter extends BaseAdapter {

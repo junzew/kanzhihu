@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.example.junze.kanzhihu.EndlessRecyclerViewScrollListener;
 import com.example.junze.kanzhihu.R;
+import com.example.junze.kanzhihu.URLUtils;
 import com.example.junze.kanzhihu.activities.NewsActivity;
 import com.example.junze.kanzhihu.model.Story;
 import com.example.junze.kanzhihu.parser.StoryParser;
@@ -64,7 +65,7 @@ public class ZhiHuRiBaoFragment extends Fragment implements SwipeRefreshLayout.O
         srl.setProgressBackgroundColorSchemeResource(R.color.colorAccent);
         srl.setSize(SwipeRefreshLayout.DEFAULT);
         srl.setOnRefreshListener(this);
-        url = "http://news-at.zhihu.com/api/4/news/latest";
+        url = URLUtils.LATEST_NEWS;
         srl.post(new Runnable() {
             @Override
             public void run() {
@@ -83,7 +84,7 @@ public class ZhiHuRiBaoFragment extends Fragment implements SwipeRefreshLayout.O
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
                 // Toast.makeText(getActivity(),"load more",Toast.LENGTH_SHORT).show();
-                String url = "http://news.at.zhihu.com/api/4/news/before/";
+                String url = URLUtils.NEWS_BEFORE;
                 String dateString = StoryParser.date;
                 String year = dateString.substring(0, 4);
                 String month = dateString.substring(4, 6);

@@ -19,10 +19,10 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.junze.kanzhihu.EndlessScrollListener;
 import com.example.junze.kanzhihu.R;
+import com.example.junze.kanzhihu.URLUtils;
 import com.example.junze.kanzhihu.activities.PostActivity;
 import com.example.junze.kanzhihu.db.DBHelper;
 import com.example.junze.kanzhihu.model.Post;
@@ -44,7 +44,6 @@ import java.util.List;
 public class KanZhiHuFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     public static final String LOAD_DATA_IN_BACKGROUND_ACTION = "LOAD_DATA_IN_BACKGROUND_ACTION";
     private MainListViewAdapter adapter;
-    private String url;
     private ListView lv;
 
     private View layout;
@@ -79,8 +78,6 @@ public class KanZhiHuFragment extends Fragment implements SwipeRefreshLayout.OnR
         adapter = new MainListViewAdapter();
         lv.setAdapter(adapter);
 
-        url = "http://api.kanzhihu.com/getposts/";
-
         if (!isNetworkAvailable()) {
             DBHelper helper = DBHelper.getInstance(getActivity());
             adapter.addPosts(helper.queryPosts());
@@ -106,7 +103,7 @@ public class KanZhiHuFragment extends Fragment implements SwipeRefreshLayout.OnR
                 int size = adapter.posts.size();
                 Post lastPosted = adapter.posts.get(size-1);
                 int lastPostedPublishtime = lastPosted.getPublishTime();
-                String url = "http://api.kanzhihu.com/getposts/" + lastPostedPublishtime;
+                String url = URLUtils.HTTPS_API_KANZHIHU_COM_GETPOSTS + lastPostedPublishtime;
                 new LoadingTask().execute(url);
                 return true;
             }
@@ -124,7 +121,7 @@ public class KanZhiHuFragment extends Fragment implements SwipeRefreshLayout.OnR
         doRefresh();
     }
     private void doRefresh() {
-        new LoadingTask().execute(url);
+        new LoadingTask().execute(URLUtils.HTTPS_API_KANZHIHU_COM_GETPOSTS);
     }
 
     static class ViewHolder {

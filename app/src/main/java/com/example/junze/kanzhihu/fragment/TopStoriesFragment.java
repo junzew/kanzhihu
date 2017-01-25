@@ -1,7 +1,6 @@
 package com.example.junze.kanzhihu.fragment;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,6 +15,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.junze.kanzhihu.R;
+import com.example.junze.kanzhihu.URLUtils;
 import com.example.junze.kanzhihu.activities.NewsActivity;
 import com.example.junze.kanzhihu.model.Story;
 import com.example.junze.kanzhihu.parser.StoryParser;
@@ -58,7 +58,7 @@ public class TopStoriesFragment extends Fragment implements SwipeRefreshLayout.O
         srl.setSize(SwipeRefreshLayout.DEFAULT);
         srl.setOnRefreshListener(this);
         srl.setRefreshing(true);
-        url = "http://news-at.zhihu.com/api/4/news/latest";
+        url = URLUtils.LATEST_NEWS;
         new LoadingTask().execute(url);
     }
 

@@ -1,16 +1,12 @@
 package com.example.junze.kanzhihu.activities;
 
 import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Adapter;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -18,13 +14,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.junze.kanzhihu.R;
+import com.example.junze.kanzhihu.URLUtils;
 import com.example.junze.kanzhihu.fragment.WebFragment;
 import com.example.junze.kanzhihu.model.User;
-import com.example.junze.kanzhihu.parser.ThemeParser;
 import com.example.junze.kanzhihu.parser.UserParser;
 import com.squareup.picasso.Picasso;
 
-import java.util.List;
+import static com.example.junze.kanzhihu.URLUtils.HTTPS_API_KANZHIHU_COM_SEARCHUSER;
 
 /**
  * Created by junze on 16-05-20.
@@ -48,7 +44,7 @@ public class SearchActivity extends WorkerActivity<User> {
         this.listViewItemResourceId = R.layout.search_lv_item;
         this.listViewResourceId = R.id.search_results;
         this.parser = new UserParser();
-        this.url = "http://api.kanzhihu.com/searchuser/";
+        this.url = HTTPS_API_KANZHIHU_COM_SEARCHUSER;
         adapter = new WorkerAdapter();
         lv.setAdapter(adapter);
 
@@ -110,7 +106,7 @@ public class SearchActivity extends WorkerActivity<User> {
 
     @Override
     protected void onClickCallBack(User user) {
-        String url = "https://www.zhihu.com/people/" + user.getId();
+        String url = URLUtils.PEOPLE+ user.getId();
         WebFragment wf = WebFragment.newInstance(url);
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.search_parent_container, wf);

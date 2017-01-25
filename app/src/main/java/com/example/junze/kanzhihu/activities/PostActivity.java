@@ -20,10 +20,13 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.junze.kanzhihu.URLUtils.HTTPS_API_KANZHIHU_COM_GETPOSTANSWERS;
+
 /**
  * Created by junze on 16-05-12.
  */
 public class PostActivity extends WorkerActivity<Answer>  {
+
     private List<Answer> favorites = new ArrayList<>();
 
     @Override
@@ -38,7 +41,7 @@ public class PostActivity extends WorkerActivity<Answer>  {
         Intent intent = getIntent();
         String name = intent.getStringExtra("name");
         String date = intent.getStringExtra("date");
-        this.url = "http://api.kanzhihu.com/getpostanswers/" + date + "/" + name;
+        this.url = HTTPS_API_KANZHIHU_COM_GETPOSTANSWERS + date + "/" + name;
 
         setContentView(activityLayoutResourceId);
         lv = (ListView) findViewById(listViewResourceId);

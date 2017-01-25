@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.View;
 
 import com.example.junze.kanzhihu.R;
+import com.example.junze.kanzhihu.URLUtils;
 import com.example.junze.kanzhihu.fragment.WebFragment;
 import com.example.junze.kanzhihu.model.News;
 import com.example.junze.kanzhihu.model.RecentStories;
@@ -38,7 +39,7 @@ public class NewsActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         id = intent.getIntExtra("id", 0);
-        String url = "http://news-at.zhihu.com/api/4/news/" + id;
+        String url = URLUtils.NEWS + id;
         System.out.println("url is: " + url);
         new getNewsTask().execute(url);
 

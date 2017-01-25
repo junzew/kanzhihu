@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.junze.kanzhihu.R;
+import com.example.junze.kanzhihu.URLUtils;
 import com.example.junze.kanzhihu.fragment.WebFragment;
 import com.example.junze.kanzhihu.model.ThemeContent;
 import com.example.junze.kanzhihu.parser.ThemeParser;
@@ -34,7 +35,7 @@ public class ThemeActivity extends WorkerActivity<ThemeContent> {
         this.listViewResourceId = R.id.selected_theme_lv;
         this.parser = new ThemeParser();
         int id = getIntent().getIntExtra("id", 0);
-        this.url = "http://news-at.zhihu.com/api/4/theme/" + id;
+        this.url = URLUtils.THEME + id;
 
         setContentView(activityLayoutResourceId);
         lv = (ListView) findViewById(listViewResourceId);

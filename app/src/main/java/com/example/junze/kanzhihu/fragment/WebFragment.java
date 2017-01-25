@@ -13,6 +13,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.example.junze.kanzhihu.R;
+import com.example.junze.kanzhihu.URLUtils;
 
 /**
  * Created by junze on 16-05-12.
@@ -66,7 +67,7 @@ public class WebFragment extends Fragment {
         if (getArguments().getString("type").equals("ids")) {
             String questionid = getArguments().getString("questionId");
             String answerid = getArguments().getString("answerId");
-            String url = "http://www.zhihu.com/question/" + questionid+"/answer/" + answerid;
+            String url = URLUtils.QUESTION + questionid+"/answer/" + answerid;
             System.out.println("loading url:" + url);
             wv.loadUrl(url);
         } else if (getArguments().getString("type").equals("html")){
