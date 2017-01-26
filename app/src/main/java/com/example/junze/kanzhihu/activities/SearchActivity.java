@@ -58,11 +58,11 @@ public class SearchActivity extends WorkerActivity<User> {
                     InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                 }
-                new WorkerTask(parser).execute(url + input);
-//                WebFragment wf = WebFragment.newInstance("https://www.zhihu.com/search?type=people&q=" + input);
-//                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-//                ft.replace(R.id.search_parent_container, wf);
-//                ft.commit();
+//                new WorkerTask(parser).execute(url + input);
+                WebFragment wf = WebFragment.newInstance("https://m.zhihu.com/search?type=people&q=" + input);
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.search_parent_container, wf);
+                ft.commit();
             }
         });
     }

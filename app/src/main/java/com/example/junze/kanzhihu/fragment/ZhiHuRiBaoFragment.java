@@ -33,6 +33,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import io.github.luizgrp.sectionedrecyclerviewadapter.SectionedRecyclerViewAdapter;
+
 /**
  * Created by junze on 16-05-12.
  */
@@ -42,9 +44,11 @@ public class ZhiHuRiBaoFragment extends Fragment implements SwipeRefreshLayout.O
     // private ListView lv;
     private RecyclerView rv;
     private LinearLayoutManager llm;
-    private RVAdapter adapter;
+//    private RVAdapter adapter;
     private String url;
     private SwipeRefreshLayout srl;
+
+    private SectionedRecyclerViewAdapter mSectionedRecyclerViewAdapter;
 
     @Nullable
     @Override
@@ -73,12 +77,12 @@ public class ZhiHuRiBaoFragment extends Fragment implements SwipeRefreshLayout.O
                 new LoadingTask().execute(url);
             }
         });
-        // RecyclerView
         rv = (RecyclerView) layout.findViewById(R.id.recycler_view);
         llm = new LinearLayoutManager(getActivity());
         rv.setLayoutManager(llm);
-        adapter = new RVAdapter();
-        rv.setAdapter(adapter);
+
+        mSectionedRecyclerViewAdapter = new SectionedRecyclerViewAdapter();
+        rv.setAdapter(mSectionedRecyclerViewAdapter);
 
         rv.addOnScrollListener(new EndlessRecyclerViewScrollListener(llm) {
             @Override
@@ -121,128 +125,78 @@ public class ZhiHuRiBaoFragment extends Fragment implements SwipeRefreshLayout.O
                 url += dayBefore;
                 Log.i("DayBefore", dayBefore);
                 new LoadingTask().execute(url);
-                int curSize = adapter.getItemCount();
-                adapter.notifyItemRangeInserted(curSize, adapter.stories.size() - 1);
             }
         });
 
     }
 
-    public class RVAdapter extends RecyclerView.Adapter<RVAdapter.StoryViewHolder> {
-        List<Story> stories = new ArrayList<>();
-
-        public void addStories(List<Story> stories) {
-            for (Story s : stories) {
-                if (!this.stories.contains(s))
-                    this.stories.add(s);
-            }
-            notifyDataSetChanged();
-        }
-
-        public void setStories(List<Story> stories) {
-            this.stories = stories;
-            Log.i("LENGTH", "" + stories.size());
-            notifyDataSetChanged();
-        }
-
-        @Override
-        public StoryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            return new StoryViewHolder(getActivity().getLayoutInflater().inflate(R.layout.zhihuribao_list_view_item, parent, false));
-        }
-
-        @Override
-        public void onBindViewHolder(StoryViewHolder holder, int position) {
-            Story s = stories.get(position);
-            holder.bindStory(s);
-        }
-
-
-        @Override
-        public int getItemCount() {
-            return stories.size();
-        }
-
-        public class StoryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-            private TextView title;
-            private ImageView img;
-            private Story mStory;
-
-            public void bindStory(Story story) {
-                mStory = story;
-                title.setText(story.getTitle());
-                Picasso.with(getActivity()).load(story.getImages().get(0)).into(img);
-                itemView.setOnClickListener(this);
-            }
-
-            public StoryViewHolder(View itemView) {
-                super(itemView);
-                title = (TextView) itemView.findViewById(R.id.zhihuribao_lv_title);
-                img = (ImageView) itemView.findViewById(R.id.zhihuribao_lv_img);
-            }
-
-            @Override
-            public void onClick(View view) {
-                Intent newsIntent = new Intent(getActivity(), NewsActivity.class);
-                newsIntent.putExtra("id", mStory.getId());
-                startActivity(newsIntent);
-            }
-        }
-    }
-
-    @Override
-    public void onRefresh() {
-        new LoadingTask().execute(url);
-    }
-
-    //    private class MainListViewAdapter extends BaseAdapter {
+//    public class RVAdapter extends RecyclerView.Adapter<RVAdapter.StoryViewHolder> {
 //        List<Story> stories = new ArrayList<>();
+//
+//        public void addStories(List<Story> stories) {
+//            for (Story s : stories) {
+//                if (!this.stories.contains(s))
+//                    this.stories.add(s);
+//            }
+//            notifyDataSetChanged();
+//        }
 //
 //        public void setStories(List<Story> stories) {
 //            this.stories = stories;
+//            Log.i("LENGTH", "" + stories.size());
 //            notifyDataSetChanged();
 //        }
 //
 //        @Override
-//        public int getCount() {
+//        public StoryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+//            return new StoryViewHolder(getActivity().getLayoutInflater().inflate(R.layout.zhihuribao_list_view_item, parent, false));
+//        }
+//
+//        @Override
+//        public void onBindViewHolder(StoryViewHolder holder, int position) {
+//            Story s = stories.get(position);
+//            holder.bindStory(s);
+//        }
+//
+//
+//        @Override
+//        public int getItemCount() {
 //            return stories.size();
 //        }
 //
-//        @Override
-//        public Object getItem(int i) {
-//            return null;
-//        }
+//        public class StoryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+//            public TextView title;
+//            public ImageView img;
+//            public Story mStory;
 //
-//        @Override
-//        public long getItemId(int i) {
-//            return 0;
-//        }
-//
-//        @Override
-//        public View getView(int position, View convertView, ViewGroup viewGroup) {
-//            if (convertView == null) {
-//                convertView = getActivity().getLayoutInflater().inflate(R.layout.zhihuribao_list_view_item, viewGroup, false);
+//            public void bindStory(Story story) {
+//                mStory = story;
+//                title.setText(story.getTitle());
+//                Picasso.with(getActivity()).load(story.getImages().get(0)).into(img);
+//                itemView.setOnClickListener(this);
 //            }
-//            final Story story = stories.get(position);
-//            TextView title = (TextView) convertView.findViewById(R.id.zhihuribao_lv_title);
-//            ImageView img = (ImageView) convertView.findViewById(R.id.zhihuribao_lv_img);
-//            title.setText(story.getTitle());
-//            Picasso.with(getActivity()).load(story.getImages().get(0)).into(img);
 //
-//            convertView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-////                    Uri uri = Uri.parse("http://news-at.zhihu.com/api/4/news/" + story.getId());
-////                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-////                    startActivity(intent);
-//                    Intent newsIntent = new Intent(getActivity(), NewsActivity.class);
-//                    newsIntent.putExtra("id", story.getId());
-//                    startActivity(newsIntent);
-//                }
-//            });
-//            return convertView;
+//            public StoryViewHolder(View itemView) {
+//                super(itemView);
+//                title = (TextView) itemView.findViewById(R.id.zhihuribao_lv_title);
+//                img = (ImageView) itemView.findViewById(R.id.zhihuribao_lv_img);
+//            }
+//
+//            @Override
+//            public void onClick(View view) {
+//                Intent newsIntent = new Intent(getActivity(), NewsActivity.class);
+//                newsIntent.putExtra("id", mStory.getId());
+//                startActivity(newsIntent);
+//            }
 //        }
-//
 //    }
+
+    @Override
+    public void onRefresh() {
+        mSectionedRecyclerViewAdapter.removeAllSections();
+        new LoadingTask().execute(url);
+    }
+
     private class LoadingTask extends AsyncTask<String, Integer, List<Story>> {
         HttpURLConnection connection;
         StringBuilder jsonResults;
@@ -288,7 +242,8 @@ public class ZhiHuRiBaoFragment extends Fragment implements SwipeRefreshLayout.O
         protected void onPostExecute(List<Story> stories) {
             super.onPostExecute(stories);
             if (stories != null) {
-                adapter.addStories(stories);
+                mSectionedRecyclerViewAdapter.addSection(new Section(stories, StoryParser.date, getActivity()));
+                mSectionedRecyclerViewAdapter.notifyDataSetChanged();
             }
             srl.setRefreshing(false);
         }

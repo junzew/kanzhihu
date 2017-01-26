@@ -1,5 +1,6 @@
 package com.example.junze.kanzhihu.activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -85,12 +87,12 @@ public class MainActivity extends AppCompatActivity  {
         //getWindow().setBackgroundDrawableResource(R.color.background);
 
         fragments = new ArrayList<>();
-        kanZhiHuFragment = new KanZhiHuFragment();
-        fragments.add(kanZhiHuFragment);
-        zhiHuRiBaoFragment = new ZhiHuRiBaoFragment();
-        fragments.add(zhiHuRiBaoFragment);
+//        kanZhiHuFragment = new KanZhiHuFragment();
+//        fragments.add(kanZhiHuFragment);
         topStoriesFragment = new TopStoriesFragment();
         fragments.add(topStoriesFragment);
+        zhiHuRiBaoFragment = new ZhiHuRiBaoFragment();
+        fragments.add(zhiHuRiBaoFragment);
         themeFragment = new ThemeFragment();
         fragments.add(themeFragment);
 
@@ -99,15 +101,15 @@ public class MainActivity extends AppCompatActivity  {
         viewPager.setAdapter(adapter);
         tabLayout = (TabLayout) findViewById(R.id.tl);
         List<String> titles = new ArrayList<>();
-        titles.add("看知乎");
-        titles.add("知乎日报");
+//        titles.add("看知乎");
         titles.add("热门");
+        titles.add("知乎日报");
         titles.add("主题列表");
         adapter.setTitles(titles);
         tabLayout.setupWithViewPager(viewPager);
 
-        Intent serviceIntent = new Intent(this, LogService.class);
-        startService(serviceIntent);
+//        Intent serviceIntent = new Intent(this, LogService.class);
+//        startService(serviceIntent);
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
@@ -115,7 +117,7 @@ public class MainActivity extends AppCompatActivity  {
 
         final ArrayAdapter<String> itemsAdapter =
                 new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,
-                        new String[] {"我的收藏", isNightModeEnabled ? "日间模式" : "夜间模式", "搜索用户"});
+                        new String[] { isNightModeEnabled ? "日间模式" : "夜间模式", "搜索用户"});
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
         mDrawerList.setAdapter(itemsAdapter);
@@ -125,10 +127,6 @@ public class MainActivity extends AppCompatActivity  {
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 switch(position) {
                     case 0:
-                        Intent intent = new Intent(MainActivity.this, FavoriteActivity.class);
-                        startActivity(intent);
-                        break;
-                    case 1:
                         TextView t = (TextView) view;
                         if (isNightModeEnabled) {
                             t.setText("日间模式");
@@ -138,7 +136,7 @@ public class MainActivity extends AppCompatActivity  {
                         isNightModeEnabled = !isNightModeEnabled;
                         mNightModeHelper.toggle();
                         break;
-                    case 2:
+                    case 1:
                         Intent searchIntent = new Intent(MainActivity.this, SearchActivity.class);
                         startActivity(searchIntent);
                         break;
@@ -173,15 +171,26 @@ public class MainActivity extends AppCompatActivity  {
                 // TODO
                 switch(item.getItemId()) {
                     case R.id.action_about:
-                        String info = getString(R.string.app_name);
-                        info += " http://www.kanzhihu.com";
-                        Toast.makeText(MainActivity.this, info, Toast.LENGTH_LONG).show();
+                        showDialog();
                         break;
                 }
                 return true;
             }
         });
 
+    }
+
+    private void showDialog() {
+        new AlertDialog.Builder(MainActivity.this)
+                .setTitle(getString(R.string.app_name))
+                .setMessage("Developed by: "+getString(R.string.developer) + "\n" + getString(R.string.website))
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // continue with delete
+                    }
+                })
+                .setIcon(R.mipmap.ic_launcher)
+                .show();
     }
     /* Called whenever we call invalidateOptionsMenu() */
     @Override
